@@ -13,19 +13,19 @@ class UserRestController(val userRepository: UserRepository) {
     val log = LogFactory.getLog(javaClass)
     val TAG_LENGTH = 6
 
-    @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/all")
+    @RequestMapping(method = arrayOf(RequestMethod.GET), value = ["/all"])
     fun getUsers(): List<User> {
         log.info("getting Users")
         return userRepository.findAll()
     }
 
-    @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/id/{id}")
+    @RequestMapping(method = arrayOf(RequestMethod.GET), value = ["/id/{id}"])
     fun getUserById(@PathVariable id: Long): User {
         log.info("getting User with Id: $id")
         return userRepository.findOne(id) ?: throw UserNotFoundForIdException(id)
     }
 
-    @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/token/{token}")
+    @RequestMapping(method = arrayOf(RequestMethod.GET), value = ["/token/{token}"])
     fun getUserByToken(@PathVariable token: String): User? {
         return userRepository.findUserByToken(token)
     }

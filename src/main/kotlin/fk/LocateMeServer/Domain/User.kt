@@ -8,9 +8,10 @@ import javax.persistence.*
 @Entity
 @Table(name = "Users")
 class User() {
-    constructor(token: String, device: String, manufacturer: String) : this() {
+    constructor(device: String, manufacturer: String) : this() {
         this.token = token
         this.device = device
+        this.manufacturer = manufacturer
     }
 
     @Id

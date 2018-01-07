@@ -10,8 +10,8 @@ interface LocationRepository : JpaRepository<Location, Long> {
 
     @Query("SELECT l FROM Location l WHERE l.user.id = :userId AND l.time >= :startTime AND l.time <= :endTime")
     fun getLocationsForUserIdFromTimePeirod(@Param("userId") userId: Long,
-                                            @Param("startTime") startTime: Date,
-                                            @Param("endTime") endTime: Date): List<Location>
+                                            @Param("startTime") startTime: Long,
+                                            @Param("endTime") endTime: Long): List<Location>
 
     @Query("SELECT l FROM Location l WHERE l.user.id = :userId ORDER BY l.time ASC")
     fun getLocationsForUserId(@Param("userId") userId: Long): List<Location>

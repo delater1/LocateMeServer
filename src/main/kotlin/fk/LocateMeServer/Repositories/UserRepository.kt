@@ -7,9 +7,7 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository : JpaRepository<User, Long> {
-    @Query("SELECT u FROM User u WHERE u.token = :token AND u.device = :device")
-    fun findUserByFirstAndLastName(@Param("token") firstName: String, @Param("device") lastName: String): User?
+interface  UserRepository : JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE token = :token")
     fun findUserByToken(@Param("token") token: String): User?

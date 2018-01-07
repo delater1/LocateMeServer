@@ -1,5 +1,6 @@
 package fk.LocateMeServer.Domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 /**
@@ -20,8 +21,12 @@ class Location() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     var id: Long = 0
-    @ManyToOne(cascade = arrayOf(CascadeType.ALL))
+    @JsonIgnore
+    @ManyToOne(cascade = [(CascadeType.ALL)])
     var user: User = User()
+    @Transient
+    var userId: Long = 0
+        get() = user.id
     @Column(name = "time", nullable = false)
     var time: Long = 0L
     @Column(name = "latitude", nullable = false)

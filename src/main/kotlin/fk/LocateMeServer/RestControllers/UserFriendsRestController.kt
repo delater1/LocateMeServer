@@ -1,5 +1,6 @@
 package fk.LocateMeServer.RestControllers
 
+import com.sun.deploy.net.HttpResponse
 import fk.LocateMeServer.Domain.User
 import fk.LocateMeServer.Domain.UserFriends
 import fk.LocateMeServer.Exceptions.UserNotFoundForIdException
@@ -17,13 +18,15 @@ class UserFriendsRestController @Autowired constructor(val userRepository: UserR
     val log = LogFactory.getLog(this.javaClass)
 
     @RequestMapping(method = arrayOf(RequestMethod.POST))
-    fun addUserFriend(@PathVariable userId: Long, @RequestBody userFriendDTO: UserFriendDTO) {
+    fun addUserFriend(@PathVariable userId: Long, @RequestBody userFriendDTO: UserFriendDTO): UserFriendDTO {
         val userFriend = userRepository.findUserByToken(userFriendDTO.token) ?: throw UserNotFoundForTokenException(userFriendDTO.token)
         val user = userRepository.findOne(userId) ?: throw UserNotFoundForIdException(userId)
-        userFriendsRepository.save(UserFriends(user, userFriend, userFriendDTO.alias))
+        val newUserFriend = UserFriends(user, userFriend, userFriendDTO.alias)
+        userFriendsRepository.save(newUserFriend)
+        return UserFriendDTO(userId, userFriend.id, userFriend.token, newUserFriend.alias)
     }
 
-    @RequestMapping(method = arrayOf(RequestMethod.GET))
+    @RequestMapping(method = [(RequestMethod.GET)])
     fun getUserFriends(@PathVariable userId: Long): List<User> {
         return userFriendsRepository.getUserFriends(userId)
     }
