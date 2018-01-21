@@ -2,9 +2,6 @@ package fk.LocateMeServer.Domain
 
 import javax.persistence.*
 
-/**
- * Created by korpa on 08.10.2017.
- */
 @Entity
 @Table(name = "Users")
 class User() {

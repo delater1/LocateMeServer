@@ -1,6 +1,5 @@
 package fk.LocateMeServer.RestControllers
 
-import com.sun.deploy.net.HttpResponse
 import fk.LocateMeServer.Domain.User
 import fk.LocateMeServer.Domain.UserFriends
 import fk.LocateMeServer.Exceptions.UserNotFoundForIdException
